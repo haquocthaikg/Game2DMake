@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb2d;
     private int _facingDirection = 1; // 1: phải, -1: trái
     private GameManager _gameManager;
+    private AudioManager _audioManager;
 
     private void Awake()
     {
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _gameManager = FindAnyObjectByType<GameManager>();
+        _audioManager = FindAnyObjectByType<AudioManager>();
     }
 
     private void Update()
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
+            _audioManager.PlayJumpSound();
             _rb2d.linearVelocity = new Vector2(_rb2d.linearVelocity.x, jumpForce);
         }
 
